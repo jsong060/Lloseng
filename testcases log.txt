@@ -1,0 +1,195 @@
+Name: Jia Xuan Song
+Student Number: 300027155
+Email: jsong060@uottawa.ca
+
+Test case 2001
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole
+Server listening for connections on port 5555
+
+
+Test case 2002
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole
+Please enter a login ID
+
+
+Test case 2003
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+
+
+Test case 2004
+- Server
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole
+Server listening for connections on port 5555
+Welcome, a client has connected.
+001 has logged on.
+
+- Client
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+> 001 has logged on.
+
+Test case 2005
+- Server
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole
+Server listening for connections on port 5555
+Welcome, a client has connected.
+001 has logged on.
+Message received: test from 001
+
+- Client
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+001 has logged on.
+test
+001> test
+
+Test case 2006
+- Server
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole
+Server listening for connections on port 5555
+Welcome, a client has connected.
+001 has logged on.
+Welcome, a client has connected.
+002 has logged on.
+Message received: test1 from 001
+Message received: test2 from 002
+
+- Client 1
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+001 has logged on.
+002 has logged on.
+test1
+001> test1
+002> test2
+
+- Client 2
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 002
+002 has logged on.
+001> test1
+test2
+002> test2
+
+Test case 2007
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole
+Server listening for connections on port 5555
+#quit
+
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>
+
+Test case 2008
+- Server
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole
+Server listening for connections on port 5555
+Welcome, a client has connected.
+001 has logged on.
+Message received: test from 001
+Welcome, a client has connected.
+002 has logged on.
+#stop
+Server has stopped listening for connections.
+Message received: test from 001
+Message received: test from 002
+#start
+Server listening for connections on port 5555
+
+- Client 1
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+001 has logged on.
+002 has logged on.
+test
+001> test
+002> test
+
+- Client 2
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 002
+002 has logged on.
+001> test
+test
+002> test
+
+Test case 2009
+- Server
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole
+Server listening for connections on port 5555
+Welcome, a client has connected.
+001 has logged on.
+#close
+Server has stopped listening for connections.
+null has disconnected.
+
+- Client
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+001 has logged on.
+Warning - connection to server has stopped
+Disconnecting
+Connection to server has been shut down
+
+Test case 2010
+- Server
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole
+Server listening for connections on port 5555
+Welcome, a client has connected.
+001 has logged on.
+#close
+Server has stopped listening for connections.
+null has disconnected.
+#start
+Server listening for connections on port 5555
+Welcome, a client has connected.
+001 has logged on.
+
+- Client
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+001 has logged on.
+Warning - connection to server has stopped
+Disconnecting
+Connection to server has been shut down
+
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+001 has logged on.
+
+Test case 2011
+- Client
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+Error, cannot establish connection.
+#quit
+Connection to server has been shut down
+
+Test case 2012
+- Server
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole
+Server listening for connections on port 5555
+Welcome, a client has connected.
+001 has logged on.
+001 stopped.
+
+- Client
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+001 has logged on.
+#logoff
+Connection to server has been shut down
+
+
+Test case 2013 
+- Client
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001
+Error, cannot establish connection.
+#sethost localhost
+Host set to : localhost
+#setport 1234
+Port set to : 1234
+
+
+Test case 2014
+- Server
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole 1234
+Server listening for connections on port 1234
+
+Test case 2015
+- Server
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ServerConsole 1234
+Server listening for connections on port 1234
+Welcome, a client has connected.
+001 has logged on.
+
+- Client
+C:\Users\J.X\Desktop\GitHub\Lloseng\code\simplechat1>java -classpath ..\..\code;. ClientConsole 001 localhost 1234
+001 has logged on.
