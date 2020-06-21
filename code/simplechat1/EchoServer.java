@@ -54,10 +54,12 @@ public class EchoServer extends AbstractServer
   public void handleMessageFromClient
     (Object msg, ConnectionToClient client)
   {
+    //if the message has #login from a client, it means that a new client has connected to the server
     if(msg.toString().contains("#login")){
+      //checks whether the login id is already in use
       if(client.getInfo("#login") == null){
         String[] log = msg.toString().split(" ");
-
+        //storing login ID
         client.setInfo(log[0],log[1]);
 
         System.out.println(log[1] + " has logged on.");
@@ -101,40 +103,39 @@ public class EchoServer extends AbstractServer
       ("Server has stopped listening for connections.");
   }
 
+  //implementation of clientConnected method in AbstractServer
   public void clientConnected(ConnectionToClient client){
     System.out.println("Welcome, a client has connected.");
   }
 
+  //implementation of clientDisconnected method in AbstractServer
   public void clientDisconnected(ConnectionToClient client){
     System.out.println(client.getInfo("#login").toString() + " has disconnected.");
   }
 
+  //implementation of clientException method in AbstractServer
   public void clientException(ConnectionToClient client, Throwable exception){
     System.out.println(client.getInfo("#login").toString() + " stopped.");
-    /*
-    try{
-
-      close();
-    } catch(Throwable e){}
-    */
-
   }
 
+
+  //this method handles messages from ServerConsole
   public void handleMessageFromServerUI(String msg, ServerConsole serverUI)
   {
     this.serverUI = serverUI;
     ///////////////////////////////////////////////////////////////////////////
-
+    //if message does not have a hashtag, simply treat it as a normal message and echo it to all clients
     if(msg.charAt(0) != '#'){
       serverUI.display(msg);
       sendToAllClients("SERVER MSG>" + msg);
     }
     else{
+      //
       String[] cmd = msg.split(" ");
 
-
+        //if the message is a command, then see if there are 2 parts to the command
       if(cmd.length == 1){
-
+        //if statement for single commands
         if(cmd[0].equals("#quit")){
           System.exit(0);
         }else if(cmd[0].equals("#stop")){
@@ -151,30 +152,29 @@ public class EchoServer extends AbstractServer
               listen();
             }catch(IOException e){}
           }else{
-            serverConsoleDisplay("Server has already started.");
+            serverUI.display("Server has already started.");
           }
         }else if(cmd[0].equals("#getport")){
           System.out.println(getPort());
         }
-      }
-      else if (cmd.length == 2){
-        if(cmd[0].equals("#setport")){
-          if(!isListening() && getNumberOfClients() == 0){
-            setPort(Integer.parseInt(cmd[1]));
-          }else{
-            System.out.println("Server is not closed.");
-          }
+        else{
+          serverUI.display("Invalid command!");
         }
       }
+      else if (cmd.length == 2 && cmd[0].equals("#setport")){
+        //if the command contains #setport, it will require an input, hence length is 2
+          if(!isListening() && getNumberOfClients() == 0){
+            setPort(Integer.parseInt(cmd[1]));
+            serverUI.display("Port set to : " + Integer.parseInt(cmd[1]));
+          }else{
+            serverUI.display("Server is not closed.");
+          }
+      }
       else{
-        serverConsoleDisplay("Invalid command!");
+        serverUI.display("Invalid command!");
       }
     }
     ////////////////////////////////////////////////////////////////////////////
-  }
-
-  public void serverConsoleDisplay(String msg){
-    System.out.println(msg);
   }
 
   //Class methods ***************************************************
@@ -190,6 +190,7 @@ public class EchoServer extends AbstractServer
   {
     int port = 0; //Port to listen on
 
+    //looks for a ServerConsole-defined port, sets to default(5555) otherwise
     try
     {
       port = Integer.parseInt(args[0]); //Get port from command line
@@ -199,6 +200,7 @@ public class EchoServer extends AbstractServer
       port = DEFAULT_PORT; //Set port to 5555
     }
 
+    //Initialize a new EchoServer
     EchoServer sv = new EchoServer(port);
 
     try

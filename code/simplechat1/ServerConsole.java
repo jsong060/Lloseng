@@ -4,6 +4,7 @@ import java.io.*;
 import client.*;
 import ocsf.server.*;
 
+//ServerConsole is a UI for EchoServer, it allows user to input commands for EchoServer
 public class ServerConsole implements ChatIF
 {
   final public static int DEFAULT_PORT = 5555;
@@ -23,6 +24,7 @@ public class ServerConsole implements ChatIF
     }
   }
 
+  //Similar to ClientConsole, this method accepts user to input commands
   public void accept()
   {
 
@@ -45,65 +47,7 @@ public class ServerConsole implements ChatIF
     }
   }
 
-  public void command(String msg){
-
-    ////////////////////////////////////////////////////////////////
-
-    System.out.println("1");
-
-    if(msg.charAt(0) != '#'){
-      System.out.println("2");
-      server.serverConsoleDisplay(msg);
-      System.out.println("3");
-      server.sendToAllClients(msg);
-    }
-    else{
-      String[] cmd = msg.split(" ");
-
-
-      if(cmd.length == 1){
-
-        System.out.println("5");
-
-        if(cmd[0].equals("#quit")){
-          System.out.println("6");
-          System.exit(0);
-        }else if(cmd[0].equals("#stop")){
-          System.out.println("7");
-          server.stopListening();
-        }else if(cmd[0].equals("#close")){
-          System.out.println("8");
-          try{
-            server.close();
-          }catch(Exception e){}
-
-        }else if(cmd[0].equals("#start")){
-          System.out.println("9");
-          if(!server.isListening()){
-            try{
-              server.listen();
-            }catch(Exception e){}
-          }else{
-            display("Server has already started.");
-          }
-        }else if(cmd[0].equals("#getport")){
-          System.out.println(server.getPort());
-        }
-      }
-      else if (cmd.length == 2){
-        System.out.println("10");
-        if(cmd[0].equals("#setport")){
-            server.setPort(Integer.parseInt(cmd[1]));
-        }
-      }
-      else{
-        display("Invalid command!");
-      }
-    }
-    ////////////////////////////////////////////////////////////////
-
-  }
-
+  //accessor to
   public EchoServer getServer(){
     return this.server;
   }
@@ -119,6 +63,7 @@ public class ServerConsole implements ChatIF
 
     int port = 0;  //The port number
 
+    //looks for user-defined port, otherwise sets it to default
     try{
       port = Integer.parseInt(args[0]);
     } catch(Exception e){
@@ -126,7 +71,7 @@ public class ServerConsole implements ChatIF
     }
 
     ServerConsole serverUI = new ServerConsole(port);
-
+    
     try
     {
       serverUI.getServer().listen(); //Start listening for connections

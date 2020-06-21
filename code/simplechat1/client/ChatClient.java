@@ -44,6 +44,9 @@ public class ChatClient extends AbstractClient
     super(host, port); //Call the superclass constructor
     this.clientUI = clientUI;
     this.loginid = loginid;
+
+    //tries to establish a connection and sending the loginid as soon as the connection is established
+    //if there are no available server, prints an error message
     try{
       openConnection();
       sendToServer("#login " + loginid);
@@ -77,12 +80,15 @@ public class ChatClient extends AbstractClient
   {
     try
     {
+      //if the message is not a command, simply send it to server
       if(message.charAt(0) != '#'){
         sendToServer(message);
       }
       else{
-        String[] cmd = message.split(" ");
 
+        //if the message is a command, then see if there are 2 parts to the command
+        String[] cmd = message.split(" ");
+        //if statement for single commands
         if(cmd.length == 1){
           if(cmd[0].equals("#quit")){
             quit();
@@ -91,6 +97,7 @@ public class ChatClient extends AbstractClient
               closeConnection();
             }catch(Exception e){}
           }else if(cmd[0].equals("#login")){
+            //if the client is already logged in, then prints a message
             if(isConnected()){
               System.out.println("User is already logged in");
             }else{
@@ -101,32 +108,35 @@ public class ChatClient extends AbstractClient
           }else if(cmd[0].equals("#getport")){
             System.out.println(this.getPort());
           }
+          else{
+            System.out.println("Invalid command!");
+          }
         }
-        else if (cmd.length == 2){
-          if(cmd[0].equals("#sethost")){
-            System.out.println("1");
+        else if (cmd[0].contains("#set")){
+          //if the command contains #set, it will require an input, hence length is 2
+          if(cmd.length == 2){
+            //for both setHost and setPort, the client needs to be diconnected first
+            //otherwise prints a message
             if(!isConnected()){
-              System.out.println("2");
-              try{
-                System.out.println("cmd[1] is \"" + cmd[1]+ "\"");
-                setHost(cmd[1]);
-                System.out.println("Host set to :" + Integer.parseInt(cmd[1]));
-              }catch(Exception e){
-                System.out.println("error");
+              if(cmd[0].equals("#sethost")){
+                  setHost(cmd[1]);
+                  System.out.println("Host set to : " + cmd[1]);
+
+              }else if(cmd[0].equals("#setport")){
+                setPort(Integer.parseInt(cmd[1]));
+                System.out.println("Port set to : " + Integer.parseInt(cmd[1]));
               }
-            }else{
+            }
+            else{
               System.out.println("client has not logged off yet.");
             }
-
-
-
-          }else if(cmd[0].equals("#setport")){
-            setPort(Integer.parseInt(cmd[1]));
-            System.out.println("Port set to :" + Integer.parseInt(cmd[1]));
+          }
+          else{
+            System.out.println("Invalid command!");
           }
         }
         else{
-          sendToServer("Invalid command!");
+          System.out.println("Invalid command!");
         }
       }
     }catch(IOException e)
@@ -150,18 +160,15 @@ public class ChatClient extends AbstractClient
     System.exit(0);
   }
 
+  //implementation of connectionClosed method in AbstractClient
   public void connectionClosed(){
     System.out.println("Connection to server has been shut down");
   }
 
+  //implementation of connectionException method in AbstractClient
   public void connectionException(Exception ex){
     System.out.println("Warning - connection to server has stopped \n"+"Disconnecting");
     this.quit();
-    /*
-    try{
-      closeConnection();
-    } catch(Exception e){}
-    */
   }
 }
 //End of ChatClient class

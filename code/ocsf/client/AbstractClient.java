@@ -21,7 +21,7 @@ import java.net.*;
  * <p>
  * Project Name: OCSF (Object Client-Server Framework)
  * <p>
- * 
+ *
  * @author Dr. Robert Lagani&egrave;re
  * @author Dr. Timothy C. Lethbridge
  * @author Fran&ccedil;ois B&eacutel;langer
@@ -35,7 +35,7 @@ public abstract class AbstractClient implements Runnable {
 	/**
 	 * Sockets are used in the operating system as channels of communication
 	 * between two processes.
-	 * 
+	 *
 	 * @see java.net.Socket
 	 */
 	private Socket				clientSocket;
@@ -75,7 +75,7 @@ public abstract class AbstractClient implements Runnable {
 
 	/**
 	 * Constructs the client.
-	 * 
+	 *
 	 * @param host
 	 *            the server's host name.
 	 * @param port
@@ -92,7 +92,7 @@ public abstract class AbstractClient implements Runnable {
 	/**
 	 * Opens the connection with the server. If the connection is already
 	 * opened, this call has no effect.
-	 * 
+	 *
 	 * @exception IOException
 	 *                if an I/O error occurs when opening.
 	 */
@@ -126,7 +126,7 @@ public abstract class AbstractClient implements Runnable {
 	/**
 	 * Sends an object to the server. This is the only way that methods should
 	 * communicate with the server.
-	 * 
+	 *
 	 * @param msg
 	 *            The message to be sent.
 	 * @exception IOException
@@ -150,7 +150,7 @@ public abstract class AbstractClient implements Runnable {
 
 	/**
 	 * Closes the connection to the server.
-	 * 
+	 *
 	 * @exception IOException
 	 *                if an I/O error occurs when closing.
 	 */
@@ -185,7 +185,7 @@ public abstract class AbstractClient implements Runnable {
 	/**
 	 * Sets the server port number for the next connection. The change in port
 	 * only takes effect at the time of the next call to openConnection().
-	 * 
+	 *
 	 * @param port
 	 *            the port number.
 	 */
@@ -203,7 +203,7 @@ public abstract class AbstractClient implements Runnable {
 	/**
 	 * Sets the server host for the next connection. The change in host only
 	 * takes effect at the time of the next call to openConnection().
-	 * 
+	 *
 	 * @param host
 	 *            the host name.
 	 */
@@ -213,7 +213,7 @@ public abstract class AbstractClient implements Runnable {
 
 	/**
 	 * returns the client's description.
-	 * 
+	 *
 	 * @return the client's Inet address.
 	 */
 	final public InetAddress getInetAddress() {
@@ -274,7 +274,7 @@ public abstract class AbstractClient implements Runnable {
 	 * Hook method called each time an exception is thrown by the client's
 	 * thread that is waiting for messages from the server. The method may be
 	 * overridden by subclasses.
-	 * 
+	 *
 	 * @param exception
 	 *            the exception raised.
 	 */
@@ -292,7 +292,7 @@ public abstract class AbstractClient implements Runnable {
 	/**
 	 * Handles a message sent from the server to this client. This MUST be
 	 * implemented by subclasses, who should respond to messages.
-	 * 
+	 *
 	 * @param msg
 	 *            the message sent.
 	 */
@@ -302,7 +302,7 @@ public abstract class AbstractClient implements Runnable {
 
 	/**
 	 * Closes all aspects of the connection to the server.
-	 * 
+	 *
 	 * @exception IOException
 	 *                if an I/O error occurs when closing.
 	 */
